@@ -1,5 +1,5 @@
 defmodule PunchCafe.Stream do
-    defstruct iterator: %ListIterator{source: []}, operation: &PunchCafe.Stream.identity/1
+    defstruct collection: [], operation: &PunchCafe.Stream.identity/1 # iterator: nil -> use iterator instead of a collection base, allowing for protocols
 
     def identity(self) do
         self
@@ -22,7 +22,7 @@ defmodule PunchCafe.Stream do
     end
 
     def collect_to_list(%PunchCafe.Stream{} = stream) do
-        map_and_drop_empty(stream.iterator, stream.operation)
+        map_and_drop_empty(stream.collection, stream.operation)
     end
 
     def collect_to_map(%PunchCafe.Stream{} = stream, key_generator) do
