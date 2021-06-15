@@ -59,6 +59,12 @@ defmodule StringsAndCharlists do
         String.pad_leading(string, str_size + pad_size)
         |> String.pad_trailing(str_size + pad_size * 2)
     end
+
+    def capitalize_sentences(sentence_string) do
+        String.split(sentence_string, ~r{\. })
+        |> Enum.map(&String.capitalize/1)
+        |> Enum.join(". ")
+    end
 end
 
 IO.inspect(StringsAndCharlists.evaluate('1 + 2'))
@@ -67,3 +73,4 @@ IO.inspect(StringsAndCharlists.evaluate('1 * 2'))
 IO.inspect(StringsAndCharlists.evaluate('5 / 5'))
 
 IO.inspect(StringsAndCharlists.center(["hello", "world", "how", "are", "u"]))
+IO.inspect(StringsAndCharlists.capitalize_sentences("anyway, this dog. yeah, what about it. well, I capitalized it."))
