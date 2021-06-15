@@ -46,9 +46,24 @@ defmodule StringsAndCharlists do
     defp extract_rhs(%{lhs: _, operation: _,remainder: [ @whitespace_char | remainder]} = input) do
       %{ input | rhs: charlist_to_int(remainder), remainder: []}
     end
+
+    def center(list) do
+        max_length = Stream.map(list, &String.length/1)
+        |> Enum.max()
+        Enum.each(list, &(IO.puts(print_centered(&1, max_length))))
+    end
+
+    defp print_centered(string, max_length) do
+        pad_size = div(max_length - String.length(string), 2)
+        str_size = String.length(string)
+        String.pad_leading(string, str_size + pad_size)
+        |> String.pad_trailing(str_size + pad_size * 2)
+    end
 end
 
 IO.inspect(StringsAndCharlists.evaluate('1 + 2'))
 IO.inspect(StringsAndCharlists.evaluate('5 - 1'))
 IO.inspect(StringsAndCharlists.evaluate('1 * 2'))
 IO.inspect(StringsAndCharlists.evaluate('5 / 5'))
+
+IO.inspect(StringsAndCharlists.center(["hello", "world", "how", "are", "u"]))
