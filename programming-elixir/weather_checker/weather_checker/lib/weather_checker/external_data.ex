@@ -1,5 +1,6 @@
-defmodule ExternalData do
+defmodule WeatherChecker.ExternalData do
     require XML
+    alias WeatherChecker.ExternalData
 
     defstruct temp_f: nil, temp_c: nil, relative_humidity: nil, latitude: nil, wind_string: nil
     @external_data_url "https://w1.weather.gov/xml/current_obs/KDTO.xml"
@@ -12,6 +13,11 @@ defmodule ExternalData do
         |> :xmerl_scan.string()
         |> extract_wanted_fields_to_keyword_list()
         |> Enum.reduce(%ExternalData{}, &map_xml_text_to_model/2)
+        |> convert_external_data_to_model()
+    end
+
+    defp convert_external_data_to_model(%ExternalData{ temp_c: temp, relative_humidity: relative_humidity, latitude: latitude, wind_string: wind}) do
+        %WeatherData{temperature_c: temp, relative_humidity: relative_humidity, latitude: latitude, wind_description: wind}
     end
 
     defp extract_wanted_fields_to_keyword_list(xmerl_object) do
