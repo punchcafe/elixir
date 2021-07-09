@@ -4,6 +4,7 @@ defmodule WeatherChecker.MixProject do
   def project do
     [
       app: :weather_checker,
+      escript: escript_config(),
       version: "0.1.0",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
@@ -21,8 +22,15 @@ defmodule WeatherChecker.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:httpoison, "~> 1.7"}
+      {:httpoison, "~> 1.7"},
+      {:ex_doc, "~> 0.19"}
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
+    ]
+  end
+
+  defp escript_config() do
+    [
+      main_module: WeatherChecker.CLI
     ]
   end
 end
