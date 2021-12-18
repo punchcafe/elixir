@@ -16,11 +16,9 @@ defmodule OneMaxProblem do
     |> Enum.max_by(&evaluate_member/1, &>=/2)
   end
 
-  def mutate(population = [member | _ ]) when is_list(member), do:
-    Enum.map(population, &mutate/1)
+  def mutate(population = [member | _]) when is_list(member), do: Enum.map(population, &mutate/1)
 
-  def mutate(member), do:
-    if :rand.uniform() < 0.05, do: Enum.shuffle(member), else: member
+  def mutate(member), do: if(:rand.uniform() < 0.05, do: Enum.shuffle(member), else: member)
 
   def do_evolve(population, bitstring_length, 0), do: population
 
