@@ -1,8 +1,10 @@
 defmodule GeneticAlgorithm do
-  #@callback(crossover(parent_1, parent_2), do: raise("unimplemented"))
-  #@callback(evaluate(parent_1), do: raise("unimplemented"))
-  #@callback(mutate(member), do: raise("unimplemented")) 
-  #GeneticAlgorithm.evolve(OneMaxProblemGenModule, 5, OneMaxProblemGenModule.generate_population_factory(5,5))
+
+  @type solution :: any()
+
+  @callback crossover(solution(), solution()) :: {solution(), solution()}
+  @callback evaluate(solution()) :: solution()
+  @callback mutate(solution()) :: solution()
 
   def evolve(module, generations, population_factory) do
     population_factory.()
@@ -20,7 +22,6 @@ defmodule GeneticAlgorithm do
     |> cycle(module)
     |> do_evolve(module, generation - 1)
   end
-
 
   def cycle(population, module) do
     population

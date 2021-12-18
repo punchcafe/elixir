@@ -1,4 +1,5 @@
 defmodule OneMaxProblemGenModule do
+
   def generate_population_factory(bitstring_length, population_size) do
     fn ->
       Enum.map(1..population_size, fn _ ->
