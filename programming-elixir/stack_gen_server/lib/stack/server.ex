@@ -1,15 +1,6 @@
-defmodule Stack do
+defmodule Stack.Server do
 
   use GenServer
-
-  def start(stack) do
-    GenServer.start_link(__MODULE__, stack, name: __MODULE__)
-  end
-
-  def pop(), do: GenServer.call(__MODULE__, :pop)
-  def push(value), do: GenServer.cast(__MODULE__, {:push, value})
-
-  #GenServer behaviour
 
   @impl GenServer
   def init(initial_stack) when is_list(initial_stack) do
@@ -25,6 +16,4 @@ defmodule Stack do
   def handle_call(:pop, _caller, [top | stack]) do
     {:reply, top, stack}
   end
-
-
 end
