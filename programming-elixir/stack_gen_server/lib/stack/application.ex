@@ -1,6 +1,6 @@
 defmodule Stack.Application do
 
-    def start_link() do
+    def start(_, _) do
         children = [
             %{ id: Stack.Cache, 
                     start: {Stack.Cache, :start_link, []}},
